@@ -3,11 +3,10 @@ const bcrypt = require("bcrypt");
 
 async function registerUser(req, res) {
     const {username, email, password} = req.body;
-    console.log(username, email);
     
     if(!username || !email || !password || username.trim() === "" || email.trim() === "" || password.trim() === "") {
         return res.status(400).json({
-            message: "All fields are required!"
+            message: "All fields are required"
         });
     }
 
@@ -19,7 +18,7 @@ async function registerUser(req, res) {
 
     if(existingUser) {
         return res.status(409).json({
-            message: "A user is already registered on this email address!"
+            message: "A user is already registered on this email address"
         })
     }
     
@@ -36,10 +35,45 @@ async function registerUser(req, res) {
     })
 
     res.status(201).json({
-        message: "User registered successfully!"
+        message: "User registered successfully"
+    });
+}
+
+async function loginUser(req, res) {
+    const {email, password} = req.body;
+
+    if(!email || !password || email.trim() === "" || password.trim() === "") {
+        return res.status(400).json({
+            message: "All fields are required!"
+        });
+    }
+
+    const existingUser = await prisma.user.findUnique({
+        where: {
+            email: email
+        }
+    });
+
+    if(!existingUser) {
+        return res.status(401).json({
+            message: "Invalid email or password"
+        });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, existingUser.password);
+
+    if(!isPasswordValid) {
+        return res.status(401).json({
+            message: "Invalid email or password"
+        });
+    }
+
+    return res.status(200).json({
+        message: "Login successful"
     });
 }
 
 module.exports = {
-    registerUser
+    registerUser,
+    loginUser
 };
