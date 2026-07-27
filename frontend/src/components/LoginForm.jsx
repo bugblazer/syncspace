@@ -6,7 +6,7 @@ function LoginForm({
     message,
     isLoading,
     handleLogin,
-    getCurrentUser,
+    getProfile,
     setIsLogin
 }) {
     return (
@@ -48,7 +48,7 @@ function LoginForm({
                 </button>
             </form>
 
-            <button onClick={getCurrentUser}>
+            <button onClick={getProfile}>
                 Get My Profile
             </button>
 

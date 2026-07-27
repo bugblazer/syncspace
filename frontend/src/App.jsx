@@ -1,6 +1,9 @@
 import { useState } from "react";
 import RegistrationForm from "./components/registrationForm";
 import LoginForm from "./components/LoginForm";
+import { register } from "./services/authService";
+import { login } from "./services/authService";
+import { getCurrentUser } from "./services/authService";
 
 function App() {
   //Registration page states
@@ -25,20 +28,7 @@ function App() {
     setIsLoading(true);
 
     try {
-      const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/auth/register`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          username: username,
-          email: email,
-          password: password
-        })
-      }
-    );
+    const response = await register(username, email, password);
 
     const data = await response.json();
 
@@ -62,19 +52,7 @@ function App() {
     setMessage("");
 
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/auth/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            email: loginEmail,
-            password: loginPassword
-          })
-        }
-      );
+      const response = await login(loginEmail, loginPassword);
 
       const data = await response.json();
 
@@ -93,17 +71,9 @@ function App() {
   }
 
   //Get the logged in user
-  async function getCurrentUser() {
-    const token = localStorage.getItem("token");
+  async function getProfile() {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/users/me`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
+      const response = await getCurrentUser();
 
       const data = await response.json();
 
@@ -123,7 +93,7 @@ function App() {
       message={message}
       isLoading={isLoading}
       handleLogin={handleLogin}
-      getCurrentUser={getCurrentUser}
+      getProfile={getProfile}
       setIsLogin={setIsLogin}
     />
     :
@@ -136,7 +106,7 @@ function App() {
       setPassword = {setPassword}
       message = {message}
       isLoading = {isLoading}
-      handleSubmit = {handleRegister}
+      handleRegister = {handleRegister}
       setIsLogin = {setIsLogin}
     />
   );
