@@ -1,4 +1,6 @@
 import { useState } from "react";
+import RegistrationForm from "./components/registrationForm";
+import LoginForm from "./components/LoginForm";
 
 function App() {
   //Registration page states
@@ -16,9 +18,10 @@ function App() {
   const [loginPassword, setLoginPassword] = useState("");
 
   //Registration handler
-  async function handleSubmit(event) {
+  async function handleRegister(event) {
     event.preventDefault();
 
+    setMessage("");
     setIsLoading(true);
 
     try {
@@ -39,7 +42,11 @@ function App() {
 
     const data = await response.json();
 
-    setMessage(data.message || data.error);
+    if (response.ok) {
+      setMessage(data.message);
+    } else {
+      setMessage(data.error);
+    }
     } catch (error){
       setMessage("Something went wrong. Please try again later");
     } finally {
@@ -93,12 +100,12 @@ function App() {
         `${import.meta.env.VITE_API_URL}/users/me`,
         {
           headers: {
-            Authorization: `Bearer: ${token}`
+            Authorization: `Bearer ${token}`
           }
         }
       );
 
-      const data = response.json();
+      const data = await response.json();
 
       console.log(data);
     } catch (error) {
@@ -107,93 +114,32 @@ function App() {
   }
 
   return (
-    isLogin ? (
-      <>
-        <h1>Login to SyncSpace</h1>
-
-        {message && <p>{message}</p>}
-
-        <form onSubmit={handleLogin}>
-
-          <div>
-            <label>Email</label>
-            <input
-              type="email"
-              value={loginEmail}
-              onChange={(event) => setLoginEmail(event.target.value)}
-            />
-          </div>
-
-          <div>
-            <label>Password</label>
-            <input 
-              type="password"
-              value={loginPassword}
-              onChange={(event) => setLoginPassword(event.target.value)}
-            />
-          </div>
-
-          <button type="submit" disabled={isLoading}>
-            {isLoading? "Loggin in..." : "Login"}
-          </button>
-
-        </form>
-
-        <button onClick={() => setIsLogin(false)}>
-          Don't have an account? Register here
-        </button>
-
-        <button onClick={getCurrentUser}>
-          Get my profile
-        </button>
-      </>
-    ) : (
-      <>
-        <h1>Create your SyncSpace account</h1>
-
-        {message && <p>{message}</p>}
-
-        <form onSubmit={handleSubmit}>
-
-          <div>
-            <label>Username</label>
-            <input 
-              type="text"
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-             />
-          </div>
-
-          <div>
-            <label>Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-          </div>
-
-          <div>
-            <label>Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-          </div>
-
-          <button type="submit" disabled={isLoading}>
-            {isLoading? "Registering" : "Register"}
-          </button>
-
-        </form>
-
-        <button onClick={() => setIsLogin(true)}>
-          Already have an account? Login here
-        </button>
-      </>
-    )
-  )
+    isLogin ?
+    <LoginForm
+      loginEmail={loginEmail}
+      setLoginEmail={setLoginEmail}
+      loginPassword={loginPassword}
+      setLoginPassword={setLoginPassword}
+      message={message}
+      isLoading={isLoading}
+      handleLogin={handleLogin}
+      getCurrentUser={getCurrentUser}
+      setIsLogin={setIsLogin}
+    />
+    :
+    <RegistrationForm
+      username = {username}
+      setUsername = {setUsername}
+      email = {email}
+      setEmail = {setEmail}
+      password = {password}
+      setPassword = {setPassword}
+      message = {message}
+      isLoading = {isLoading}
+      handleSubmit = {handleRegister}
+      setIsLogin = {setIsLogin}
+    />
+  );
 
 }
 
