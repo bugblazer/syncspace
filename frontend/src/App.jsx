@@ -7,7 +7,7 @@ import { getCurrentUser } from "./services/authService";
 
 function App() {
   //Registration page states
-  const [message, setMessage] = useState("");
+  const [registerMessage, setRegisterMessage] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,6 +16,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   //Login page states
+  const [loginMessage, setLoginMessage] = useState("");
   const [isLogin, setIsLogin] = useState(false);
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -24,7 +25,7 @@ function App() {
   async function handleRegister(event) {
     event.preventDefault();
 
-    setMessage("");
+    setRegisterMessage("");
     setIsLoading(true);
 
     try {
@@ -33,12 +34,12 @@ function App() {
     const data = await response.json();
 
     if (response.ok) {
-      setMessage(data.message);
+      setRegisterMessage(data.message);
     } else {
-      setMessage(data.error);
+      setRegisterMessage(data.error);
     }
     } catch (error){
-      setMessage("Something went wrong. Please try again later");
+      setRegisterMessage("Something went wrong. Please try again later");
     } finally {
       setIsLoading(false);
     }
@@ -49,7 +50,7 @@ function App() {
     event.preventDefault();
 
     setIsLoading(true);
-    setMessage("");
+    setLoginMessage("");
 
     try {
       const response = await login(loginEmail, loginPassword);
@@ -58,13 +59,13 @@ function App() {
 
       if (response.ok) {
         localStorage.setItem("token", data.token);
-        setMessage("Login successful");
+        setLoginMessage("Login successful");
       } else {
-        setMessage(data.message || data.error);
+        setLoginMessage(data.message || data.error);
       }
 
     } catch (error) {
-      setMessage("Something went wrong. Please try again.");
+      setLoginMessage("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -86,15 +87,16 @@ function App() {
   return (
     isLogin ?
     <LoginForm
-      loginEmail={loginEmail}
-      setLoginEmail={setLoginEmail}
-      loginPassword={loginPassword}
-      setLoginPassword={setLoginPassword}
-      message={message}
-      isLoading={isLoading}
-      handleLogin={handleLogin}
-      getProfile={getProfile}
-      setIsLogin={setIsLogin}
+      loginEmail = {loginEmail}
+      setLoginEmail = {setLoginEmail}
+      loginPassword = {loginPassword}
+      setLoginPassword = {setLoginPassword}
+      loginMessage = {loginMessage}
+      setLoginMessage = {setLoginMessage}
+      isLoading = {isLoading}
+      handleLogin = {handleLogin}
+      getProfile = {getProfile}
+      setIsLogin = {setIsLogin}
     />
     :
     <RegistrationForm
@@ -104,7 +106,8 @@ function App() {
       setEmail = {setEmail}
       password = {password}
       setPassword = {setPassword}
-      message = {message}
+      registerMessage = {registerMessage}
+      setRegisterMessage = {setRegisterMessage}
       isLoading = {isLoading}
       handleRegister = {handleRegister}
       setIsLogin = {setIsLogin}

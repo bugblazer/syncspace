@@ -3,7 +3,8 @@ function LoginForm({
     setLoginEmail,
     loginPassword,
     setLoginPassword,
-    message,
+    loginMessage,
+    setLoginMessage,
     isLoading,
     handleLogin,
     getProfile,
@@ -13,7 +14,7 @@ function LoginForm({
         <>
             <h1>Login to SyncSpace</h1>
 
-            {message && <p>{message}</p>}
+            {loginMessage && <p>{loginMessage}</p>}
 
             <form onSubmit={handleLogin}>
                 <div>
@@ -52,7 +53,10 @@ function LoginForm({
                 Get My Profile
             </button>
 
-            <button onClick={() => setIsLogin(false)}>
+            <button onClick={() => {
+                setLoginMessage("");
+                setIsLogin(false);
+            }}>
                 Don't have an account? Register
             </button>
         </>

@@ -5,7 +5,8 @@ function RegistrationForm({
     setEmail,
     password,
     setPassword,
-    message,
+    registerMessage,
+    setRegisterMessage,
     isLoading,
     handleRegister,
     setIsLogin
@@ -14,7 +15,7 @@ function RegistrationForm({
         <>
             <h1>Create your SyncSpace account</h1>
 
-            {message && <p>{message}</p>}
+            {registerMessage && <p>{registerMessage}</p>}
 
             <form onSubmit={handleRegister}>
                 <div>
@@ -52,7 +53,10 @@ function RegistrationForm({
                 </button>
             </form>
 
-            <button onClick={() => setIsLogin(true)}>
+            <button onClick={() => {
+                setRegisterMessage("");
+                setIsLogin(true);
+            }}>
                 Already have an account? Login here
             </button>
         </>
