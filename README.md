@@ -34,3 +34,8 @@ SyncSpace aims to provide a modern, self-hosted alternative to paid communicatio
 ## License
 
 This project is licensed under the MIT License.
+
+
+##Attributes & References
+
+Favicon by: https://www.flaticon.com/authors/popo2021
