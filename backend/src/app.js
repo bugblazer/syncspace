@@ -10,8 +10,8 @@ const userRoutes = require("./routes/userRoutes");
 app.use(cors());
 app.use(express.json());
 
-app.use("/", indexRoutes);
-app.use("/auth", authRoutes);
-app.use("/users", userRoutes);
+app.use("/api", indexRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
 
 module.exports = app;
