@@ -5,5 +5,6 @@ const serverController = require("../controllers/serverController");
 const router = express.Router();
 
 router.post("/", authMiddleware, serverController.createServer);
+router.get("/:id", authMiddleware, serverController.getServer);
 
 module.exports = router;

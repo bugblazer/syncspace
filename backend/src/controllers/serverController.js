@@ -40,6 +40,47 @@ async function createServer(req, res) {
     }
 }
 
+async function getServer(req, res) {
+    const serverId = req.params.id;
+
+    try {
+        const server = await prisma.server.findUnique({
+            where: {
+                id: serverId
+            },
+            include: {
+                members: {
+                    include: {
+                        user: {
+                            select: {
+                                id: true,
+                                username: true
+                            }
+                        }
+                    }
+                }
+            }
+        })
+
+        if(!server) {
+            return res.status(404).json({
+                error: "Server not found"
+            });
+        }
+
+        return res.status(200).json({
+            server
+        });
+    }  catch(error) {
+        console.error("Error getting server:", error);
+
+        return res.status(500).json({
+            error: "Internal server error"
+        });
+    }
+}
+
 module.exports = {
-    createServer
+    createServer,
+    getServer
 };
