@@ -31,6 +31,7 @@ model Server {
 
   members  Member[]
   channels Channel[]
+  invites Invite[]
 }
 
 model Member {
@@ -68,4 +69,15 @@ model Message {
 
   userId String
   user   User   @relation(fields: [userId], references: [id])
+}
+
+model Invite {
+  id String @id @default(uuid())
+
+  token String @unique
+
+  serverId String
+  server Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
 }
