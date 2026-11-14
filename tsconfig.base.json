@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "strict": true,
+    // Indexing an array or record may miss, so the result includes undefined until checked
+    "noUncheckedIndexedAccess": true,
+    "noFallthroughCasesInSwitch": true,
+    // Forces `import type` for type-only imports, so they're erased from the output
+    "verbatimModuleSyntax": true,
+    // tsx and Vite compile one file at a time; this flags code that needs whole-program info
+    "isolatedModules": true,
+    // Don't type-check other packages' .d.ts files; their authors already did
+    "skipLibCheck": true
+  }
+}
