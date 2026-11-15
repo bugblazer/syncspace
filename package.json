@@ -9,6 +9,8 @@
   ],
   "scripts": {
     "lint": "eslint .",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
