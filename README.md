@@ -6,12 +6,12 @@ SyncSpace is an open source chat app you can run on your own server. It's made f
 
 ## Why SyncSpace
 
-A lot of chat apps limit what you get unless you pay, whether that's how far back you can scroll or how many people can join. SyncSpace doesn't, and it won't start:
+A lot of chat apps limit what you get unless you pay, whether that's how far back you can scroll or how many people can join. SyncSpace doesn't, and it won't ever:
 
 - Your whole message history stays available, and the only limit on users is what your server can handle.
 - Running it takes one app container plus PostgreSQL, started with `docker compose up`. That setup comes with v1.
 - Search covers every server you're in, and you can jump straight to an old message or pin the ones that matter.
-- There's no ID or phone verification, and no tracking.
+- There's no tracking.
 
 ## What's planned for v1
 
