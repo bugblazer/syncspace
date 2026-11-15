@@ -1,7 +1,7 @@
 {
   "name": "syncspace",
   "private": true,
-  "description": "Open source, self-hostable chat: Discord's structure with Slack's conversation hygiene",
+  "description": "Open source chat app you can run on your own server, made for friend groups, clubs and small teams",
   "license": "AGPL-3.0-only",
   "type": "module",
   "workspaces": [
