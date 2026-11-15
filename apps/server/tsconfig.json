@@ -4,8 +4,7 @@
     "module": "nodenext",
     "target": "es2025",
     "types": ["node"],
-    "rootDir": "src",
-    "outDir": "dist"
+    "noEmit": true
   },
-  "include": ["src"]
+  "include": ["src", "test"]
 }
