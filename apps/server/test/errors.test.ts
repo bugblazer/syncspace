@@ -1,9 +1,16 @@
 import express, { type RequestHandler } from 'express';
 import request from 'supertest';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { createApp } from '../src/app.js';
 import { handleError } from '../src/errors.js';
+import { createTestPrisma } from './helpers.js';
+
+const prisma = createTestPrisma();
+
+afterAll(async () => {
+  await prisma.$disconnect();
+});
 
 function appWithRoute(handler: RequestHandler) {
   const app = express();
@@ -14,7 +21,7 @@ function appWithRoute(handler: RequestHandler) {
 
 describe('unknown routes', () => {
   it('respond 404 with a JSON error', async () => {
-    await request(createApp())
+    await request(createApp({ prisma }))
       .get('/api/does-not-exist')
       .expect(404)
       .expect('Content-Type', /json/)
