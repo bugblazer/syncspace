@@ -8,7 +8,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default defineConfig(
-  globalIgnores(['**/dist/', '**/coverage/']),
+  globalIgnores(['**/dist/', '**/coverage/', 'apps/server/src/generated/']),
   js.configs.recommended,
   {
     plugins: { 'simple-import-sort': simpleImportSort },
