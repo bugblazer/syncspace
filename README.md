@@ -73,10 +73,11 @@ Copy the server's example environment file, then fill in your database's user an
 cp apps/server/.env.example apps/server/.env
 ```
 
-| Variable       | Required | Description                                                                      |
-| -------------- | -------- | -------------------------------------------------------------------------------- |
-| `PORT`         | Yes      | Port the API server listens on, for example `3000`                               |
-| `DATABASE_URL` | Yes      | PostgreSQL connection URL: `postgresql://USER:PASSWORD@localhost:5434/syncspace` |
+| Variable       | Required | Description                                                                                        |
+| -------------- | -------- | -------------------------------------------------------------------------------------------------- |
+| `HOST`         | Yes      | IP address the API server listens on. Use `127.0.0.1` to accept connections from this machine only |
+| `PORT`         | Yes      | Port the API server listens on, for example `3000`                                                 |
+| `DATABASE_URL` | Yes      | PostgreSQL connection URL: `postgresql://USER:PASSWORD@localhost:5434/syncspace`                   |
 
 ### Run
 
